@@ -15,7 +15,7 @@ class BookController extends Controller
 {
     public function index()
     {
-        $data['books'] = Book::with('bookshelf')->get();
+        $data['books'] = Book::with('bookshelf')->paginate(5);
         return view('books.index', $data);
     }
 
@@ -139,4 +139,20 @@ class BookController extends Controller
         );
         return redirect()->route('book')->with($notification);
     }
+    public function search(Request $request){
+    $query = $request->input('query');  // Menangkap kata kunci pencarian dari form
+
+    // Jika ada query pencarian, lakukan pencarian berdasarkan judul atau penulis
+    if ($query) {
+        $books = Book::where('title', 'like', "%{$query}%")
+            ->orWhere('author', 'like', "%{$query}%")
+            ->paginate(5);  // Menampilkan hasil dalam bentuk paginasi
+    } else {
+        $books = Book::paginate(5);  // Jika tidak ada pencarian, tampilkan semua buku
+    }
+
+    return view('book.search', compact('books', 'query'));  // Kirim hasil pencarian ke view
+    }   
+
+
 }

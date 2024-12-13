@@ -9,6 +9,11 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
+                
+                
+                <div class = "pull-right">
+                    {{ $books->links() }}
+                </div>
 
                     <x-primary-button tag="a" href="{{ route('book.create') }}">Tambah Data Buku</x-primary-button>
                     <x-primary-button tag="a" href="{{ route('book.print') }}">Print PDF</x-primary-button>
@@ -17,7 +22,10 @@
                         Excel</x-primary-button>
                     <x-primary-button x-data=""
                         x-on:click.prevent="$dispatch('open-modal', 'import-book')">{{ __('Import Excel') }}</x-primary-button>
+                    
 
+
+                    
                     <x-table>
                         <x-slot name="header">
                             <tr class="py-10">
@@ -32,9 +40,9 @@
                                 <th scope="col">Aksi</th>
                             </tr>
                         </x-slot>
-                        @foreach ($books as $book)
+                        @foreach ($books as $key => $book)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $books->firstItem() + $key }}</td>
                                 <td>{{ $book->title }}</td>
                                 <td>{{ $book->author }}</td>
                                 <td>{{ $book->year }}</td>
@@ -54,6 +62,8 @@
                             </tr>
                         @endforeach
                     </x-table>
+
+                    
 
                     <x-modal name="confirm-book-deletion" focusable maxWidth="xl">
                         <form method="post" x-bind:action="action" class="p-6">
