@@ -16,13 +16,13 @@ class BooksImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         return new Book([
-            'title' => $row['title'],
-            'author' => $row['author'],
-            'year' => $row['year'],
-            'publisher' => $row['publisher'],
-            'city' => $row['city'],
-            'cover' => $row['cover'],
-            'bookshelf_id' => $row['bookshelf_id'],
-        ]);
-    }
+            'title'=> $row['title'],
+            'author'=> $row['author'],
+            'year'=> $row['year'],
+            'publisher'=> $row['publisher'],
+            'city'=> $row['city'],
+            'cover'=>'null',
+            'bookshelf_id'=> $row['bookshelf_id'],
+        ]); 
+    }   
 }
